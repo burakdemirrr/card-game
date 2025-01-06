@@ -32,8 +32,6 @@ export default function CardGame() {
   const [moves, setMoves] = useState(0);
   const [currentLevel, setCurrentLevel] = useState(0);
   const [isGameComplete, setIsGameComplete] = useState(false);
-  const [playerName, setPlayerName] = useState('');
-  const [hasStarted, setHasStarted] = useState(false);
   const [bestScores, setBestScores] = useState<number[]>(
     Array(levels.length).fill(Infinity)
   );
@@ -167,50 +165,17 @@ export default function CardGame() {
     }, 100);
   };
 
-  if (!hasStarted) {
-    return (
-      <div className="p-6 bg-white rounded-2xl shadow-lg">
-        <div className="text-center py-12 space-y-8">
-          <div className="text-4xl font-bold text-purple-800">
-            🐱 Welcome to Cat Memory! 🐱
-          </div>
-          <div className="max-w-md mx-auto space-y-6">
-            <input
-              type="text"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-              placeholder="Enter your name"
-              className="w-full px-6 py-4 text-lg rounded-full border-2 border-purple-200 focus:border-purple-400 focus:outline-none text-center"
-              maxLength={20}
-            />
-            <button
-              onClick={() => setHasStarted(true)}
-              disabled={!playerName.trim()}
-              className={`w-full px-8 py-4 rounded-full font-medium text-lg transition-all duration-200 ${
-                playerName.trim() 
-                  ? 'bg-purple-100 text-purple-600 hover:bg-purple-200' 
-                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              }`}
-            >
-              Start Game! 🎮
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="p-6 bg-white rounded-2xl shadow-lg">
       {isGameComplete && currentLevel === levels.length - 1 ? (
         // Win Page
         <div className="text-center py-12 space-y-8">
           <div className="text-4xl font-bold text-purple-800 animate-bounce">
-            🎉 YOU WIN, {playerName}! 🎉
+            🎉 YOU WIN! 🎉
           </div>
           <div className="space-y-4">
             <div className="text-2xl font-bold text-purple-600">
-              Amazing job! You've mastered all levels!
+              Congratulations! You've mastered all levels!
             </div>
             <div className="text-xl text-purple-500">
               Final Score: {moves} moves
@@ -218,7 +183,7 @@ export default function CardGame() {
           </div>
           <div className="space-y-4">
             <div className="text-lg text-gray-600">
-              {playerName}'s Best Scores:
+              Best Scores:
             </div>
             <div className="max-w-xs mx-auto space-y-2">
               {levels.map((level, index) => (
@@ -231,35 +196,17 @@ export default function CardGame() {
               ))}
             </div>
           </div>
-          <div className="space-y-4">
-            <button
-              onClick={() => {
-                setHasStarted(false);
-                setPlayerName('');
-                setCurrentLevel(0);
-                setBestScores(Array(levels.length).fill(Infinity));
-              }}
-              className="px-8 py-4 rounded-full font-medium bg-purple-100 text-purple-600 hover:bg-purple-200 transition-all duration-200 text-lg"
-            >
-              New Game 🎮
-            </button>
-            <button
-              onClick={restartLevel}
-              className="px-8 py-4 rounded-full font-medium bg-green-100 text-green-600 hover:bg-green-200 transition-all duration-200 text-lg ml-4"
-            >
-              Play Again 🔄
-            </button>
-          </div>
+          <button
+            onClick={restartLevel}
+            className="px-8 py-4 rounded-full font-medium bg-green-100 text-green-600 hover:bg-green-200 transition-all duration-200 text-lg"
+          >
+            Play Again 🎮
+          </button>
         </div>
       ) : (
         // Game Interface
         <>
           <div className="mb-8 space-y-6">
-            {/* Player Name and Level Progress */}
-            <div className="text-center mb-4">
-              <span className="text-xl font-medium text-purple-600">Player: {playerName}</span>
-            </div>
-            
             {/* Level Progress Bar */}
             <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
               <div 
