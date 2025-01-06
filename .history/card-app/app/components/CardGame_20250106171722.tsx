@@ -140,29 +140,18 @@ export default function CardGame() {
 
   const handleNextLevel = () => {
     if (currentLevel < levels.length - 1) {
-      // Reset cards first
-      setCards([]);
-      // Then change level
       setCurrentLevel(prev => prev + 1);
     }
   };
 
   const handlePreviousLevel = () => {
     if (currentLevel > 0) {
-      // Reset cards first
-      setCards([]);
-      // Then change level
       setCurrentLevel(prev => prev - 1);
     }
   };
 
   const restartLevel = () => {
-    // Reset cards first
-    setCards([]);
-    // Then reinitialize
-    setTimeout(() => {
-      initializeLevel(currentLevel);
-    }, 100);
+    initializeLevel(currentLevel);
   };
 
   return (
