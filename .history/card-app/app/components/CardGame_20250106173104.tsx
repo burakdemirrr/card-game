@@ -316,7 +316,7 @@ export default function CardGame() {
                 Level Complete! 🌟
               </div>
               <div className="text-xl text-purple-500">
-                {moves} moves - Click Next Level to continue
+                {moves} moves - Click 'Next Level' to continue
               </div>
             </div>
           )}
